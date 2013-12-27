@@ -6,13 +6,39 @@ angular.module('mainApp', [
   'ngSanitize',
   'ngRoute'
 ])
-  .config(function ($routeProvider) {
+  .config(function ($routeProvider,$httpProvider) {
     $routeProvider
       .when('/', {
-        templateUrl: '/app/views/main.html',
+        templateUrl: '/home',
         controller: 'MainCtrl'
+      })
+      .when('/login', {
+        templateUrl: '/login',
+        controller: 'LoginCtrl'
       })
       .otherwise({
         redirectTo: '/'
       });
+    var interceptor = ['$location', '$q', function($location, $q) {
+      function success(response) {
+        return response;
+      }
+
+      function error(response) {
+
+        if(response.status === 401) {
+          $location.path('/login');
+          return $q.reject(response);
+        }
+        else {
+          return $q.reject(response);
+        }
+      }
+
+      return function(promise) {
+        return promise.then(success, error);
+      }
+    }];
+
+    $httpProvider.responseInterceptors.push(interceptor);
   });

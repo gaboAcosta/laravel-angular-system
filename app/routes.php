@@ -17,3 +17,11 @@ Route::get('/', function()
 });
 
 Route::controller('session','SessionController');
+
+Route::get('/home', array('before' => 'auth', function(){
+    return View::make('home');
+}));
+
+Route::get('/login',function(){
+    return View::make('login');
+});

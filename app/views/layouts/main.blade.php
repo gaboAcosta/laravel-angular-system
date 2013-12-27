@@ -23,10 +23,14 @@
     <!--  Angular Controllers  -->
     {{ HTML::script('app/scripts/app.js') }}
     {{ HTML::script('app/scripts/controllers/main.js') }}
+    {{ HTML::script('app/scripts/controllers/login.js') }}
     <!--  Angular Controllers  -->
 </head>
 
 <body ng-app="mainApp">
+<div class="container">
     <ng-view></ng-view>
+</div>
+
 </body>
 </html>
