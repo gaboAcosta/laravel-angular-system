@@ -52,13 +52,6 @@ class UsersTest extends TestCase{
     public function postuser($user = array()){
         if(empty($user)){
             $user = array('username'=>'asd','password'=>'asd');
-            $this->app->instance('User',$this->userRepoMock);
-            $this->userRepoMock
-                ->shouldReceive('whereUsername')
-                ->once()
-                ->with('asd')
-                ->andReturn($this->foundUserMock);
-
         }
 
         $this->client->request('POST','/session/start',$user);

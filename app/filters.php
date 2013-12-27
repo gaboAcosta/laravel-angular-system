@@ -35,7 +35,7 @@ App::after(function($request, $response)
 
 Route::filter('auth', function()
 {
-	if (Auth::guest()) return Response::json(
+	if (! Auth::check()) return Response::json(
         array('msg' =>'user not logged in'),
         '401'
     );

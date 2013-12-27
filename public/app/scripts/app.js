@@ -19,7 +19,7 @@ angular.module('mainApp', [
       .otherwise({
         redirectTo: '/'
       });
-    var interceptor = ['$location', '$q', function($location, $q) {
+    var interceptor = ['$location', '$q','$rootScope', function($location, $q, $rootScope) {
       function success(response) {
         return response;
       }
@@ -27,6 +27,7 @@ angular.module('mainApp', [
       function error(response) {
 
         if(response.status === 401) {
+          $rootScope.lastPath = $location.path();
           $location.path('/login');
           return $q.reject(response);
         }

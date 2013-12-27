@@ -30,12 +30,4 @@ describe('Controller: MainCtrl', function () {
   it('should attach a list of awesomeThings to the scope', function () {
     expect(scope.awesomeThings.length).toBe(3);
   });
-
-  it('should redirect the user to the login screen',function(){
-    $httpBackend.expectGET('/home').respond(401);
-    $http.get('/home');
-    $location.path('/');
-    $httpBackend.flush();
-    expect($location.path()).toBe('/login');
-  });
 });

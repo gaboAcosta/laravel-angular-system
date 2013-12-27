@@ -31,8 +31,12 @@ class SessionController extends BaseController {
     public function postStart(){
         $validator = Validator::make(Input::all(), User::$login_rules);
         if(Auth::attempt(array('username'=>Input::get('username'),'password'=>Input::get('password')))){
-            $user = $this->userRepo->whereUsername(Input::get('username'));
-            Session::put('user', $user);
+            return Response::json(
+                array(
+                    'message' => 'login successfull'
+                ),
+                '200'
+            );
         } else {
             return Response::json(
                 array(

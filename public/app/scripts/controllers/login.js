@@ -7,6 +7,9 @@
  */
 
 angular.module('mainApp')
-.controller('LoginCtrl',function(){
-
+.controller('LoginCtrl',function($scope,$http,$location,$rootScope){
+  $scope.login = function(){
+    $http.post('/session/start',{username:$scope.username,password:$scope.password})
+      .success(function(){$location.path($rootScope.lastPath)});
+  }
   });
