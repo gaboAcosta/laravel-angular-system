@@ -18,6 +18,10 @@ module.exports = function (grunt) {
       dist: 'dist'
     },
     watch: {
+      karma: {
+        files: ['test/**/*.js','app/scripts/**/*.js'],
+        tasks: ['karma']
+      },
       coffee: {
         files: ['<%= yeoman.app %>/scripts/{,*/}*.coffee'],
         tasks: ['coffee:dist']
@@ -266,7 +270,7 @@ module.exports = function (grunt) {
     karma: {
       unit: {
         configFile: 'karma.conf.js',
-        singleRun: true
+        singleRun:true
       }
     },
     cdnify: {

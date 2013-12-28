@@ -4,7 +4,8 @@ angular.module('mainApp', [
   'ngCookies',
   'ngResource',
   'ngSanitize',
-  'ngRoute'
+  'ngRoute',
+  'ui.bootstrap'
 ])
   .config(function ($routeProvider,$httpProvider) {
     $routeProvider

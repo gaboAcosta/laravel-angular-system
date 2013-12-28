@@ -17,6 +17,8 @@ describe('Controller: MainCtrl', function () {
     MainCtrl = $controller('MainCtrl', {
       $scope: scope
     });
+
+
     $httpBackend = $injector.get('$httpBackend');
     $http = $injector.get('$http');
     $location = $injector.get('$location');

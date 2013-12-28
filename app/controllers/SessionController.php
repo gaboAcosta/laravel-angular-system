@@ -33,7 +33,7 @@ class SessionController extends BaseController {
         if(Auth::attempt(array('username'=>Input::get('username'),'password'=>Input::get('password')))){
             return Response::json(
                 array(
-                    'message' => 'login successfull'
+                    'message' => 'login successful'
                 ),
                 '200'
             );
@@ -51,5 +51,11 @@ class SessionController extends BaseController {
 
     public function getEnd(){
         Auth::logout();
+        return Response::json(
+            array(
+                'message' => 'logout successful'
+            ),
+            '200'
+        );
     }
 }

@@ -1,0 +1,2 @@
+All the views for this app are generated through Laravel, as an added security meassure, this way
+the only way anyone can retrieve the views has to have permission to see them ;)

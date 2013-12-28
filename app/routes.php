@@ -18,9 +18,19 @@ Route::get('/', function()
 
 Route::controller('session','SessionController');
 
+Route::group(array('before' => 'auth'),function(){
+    Route::get('/home', function(){
+        return View::make('home');
+    });
+    Route::get('/navbar', function(){
+        return View::make('partials.navbar');
+    });
+});
+
 Route::get('/home', array('before' => 'auth', function(){
     return View::make('home');
 }));
+
 
 Route::get('/login',function(){
     return View::make('login');

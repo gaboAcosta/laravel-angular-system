@@ -5,6 +5,7 @@
  * Time: 2:48 PM
  */
 ?>
+<div class="row" ng-include="'/navbar'"></div>
 <div class="hero-unit">
     <h1>'Allo, 'Allo!</h1>
     <p>You now have</p>
