@@ -7,7 +7,11 @@ angular.module('mainApp', [
   'ngRoute',
   'ui.bootstrap'
 ])
-  .config(function ($routeProvider,$httpProvider) {
+  .config(function ($routeProvider,$httpProvider,$interpolateProvider) {
+
+    $interpolateProvider.startSymbol('[[');
+    $interpolateProvider.endSymbol(']]');
+
     $routeProvider
       .when('/', {
         templateUrl: '/home',
