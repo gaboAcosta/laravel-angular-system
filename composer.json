@@ -5,7 +5,8 @@
 	"license": "MIT",
 	"require": {
 		"laravel/framework": "4.1.*",
-    "twitter/bootstrap": "*"
+    "twitter/bootstrap": "*",
+    "cartalyst/sentry": "2.0.*"
 	},
   "require-dev":{
     "mockery/mockery": "dev-master"

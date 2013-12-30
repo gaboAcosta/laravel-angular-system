@@ -13,7 +13,15 @@ describe('Controller: NavBarCtrl',function(){
     $httpBackend,
     $rootScope,
     NavBarCtrl,
+    $window,
     $location;
+
+  $window = {
+    location:{
+
+    }
+  }
+
   beforeEach(inject(function($injector){
     $rootScope = $injector.get('$rootScope');
     $scope = $rootScope.$new();
@@ -21,7 +29,7 @@ describe('Controller: NavBarCtrl',function(){
     $controller = $injector.get('$controller');
     $location = $injector.get('$location');
     NavBarCtrl = $controller('NavBarCtrl',{
-      $scope:$scope
+      $scope:$scope, $window:$window
     });
   }));
 
@@ -34,6 +42,6 @@ describe('Controller: NavBarCtrl',function(){
     $httpBackend.expectGET('/session/end').respond({'msg':'logut successful'});
     $scope.logout();
     $httpBackend.flush();
-    expect($location.path()).toBe('/login');
+    expect($window.location.href).toBe('/');
   });
 });

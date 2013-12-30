@@ -21,10 +21,14 @@ angular.module('mainApp', [
         templateUrl: '/login',
         controller: 'LoginCtrl'
       })
+      .when('/test', {
+        templateUrl: '/acl',
+        controller: 'MainCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
-    var interceptor = ['$location', '$q','$rootScope', function($location, $q, $rootScope) {
+    var interceptor = ['$location', '$q','$rootScope','$window', function($location, $q, $rootScope,$window) {
       function success(response) {
         return response;
       }
@@ -34,6 +38,9 @@ angular.module('mainApp', [
         if(response.status === 401) {
           $rootScope.lastPath = $location.path();
           $location.path('/login');
+          return $q.reject(response);
+        } else if(response.status === 403){
+          $window.alert("You don't have permission to the requested access");
           return $q.reject(response);
         }
         else {

@@ -29,8 +29,54 @@ class SessionController extends BaseController {
     }
 
     public function postStart(){
-        $validator = Validator::make(Input::all(), User::$login_rules);
-        if(Auth::attempt(array('username'=>Input::get('username'),'password'=>Input::get('password')))){
+
+        try
+        {
+            // Set login credentials
+            $credentials = array(
+                'username'    => Input::get('username'),
+                'password' => Input::get('password'),
+            );
+
+            $msg = null;
+
+            // Try to authenticate the user
+            $user = Sentry::authenticate($credentials, false);
+        }
+        catch (Cartalyst\Sentry\Users\LoginRequiredException $e)
+        {
+            $msg = 'Login field is required.';
+        }
+        catch (Cartalyst\Sentry\Users\PasswordRequiredException $e)
+        {
+            $msg = 'Password field is required.';
+        }
+        catch (Cartalyst\Sentry\Users\WrongPasswordException $e)
+        {
+            $msg = 'Wrong password, try again.';
+        }
+        catch (Cartalyst\Sentry\Users\UserNotFoundException $e)
+        {
+            $msg = 'User was not found.';
+        }
+        catch (Cartalyst\Sentry\Users\UserNotActivatedException $e)
+        {
+            $msg = 'User is not activated.';
+        }
+
+        // The following is only required if throttle is enabled
+        catch (Cartalyst\Sentry\Throttling\UserSuspendedException $e)
+        {
+            $msg = 'User is suspended.';
+        }
+        catch (Cartalyst\Sentry\Throttling\UserBannedException $e)
+        {
+            $msg = 'User is banned.';
+        }
+
+
+
+        if(!$msg){
             return Response::json(
                 array(
                     'message' => 'login successful'
@@ -40,7 +86,7 @@ class SessionController extends BaseController {
         } else {
             return Response::json(
                 array(
-                    'message' => 'login refused'
+                    'message' => $msg
                 ),
                 '401'
             );
@@ -50,7 +96,7 @@ class SessionController extends BaseController {
     }
 
     public function getEnd(){
-        Auth::logout();
+        Sentry::logout();
         return Response::json(
             array(
                 'message' => 'logout successful'

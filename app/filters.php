@@ -35,10 +35,35 @@ App::after(function($request, $response)
 
 Route::filter('auth', function()
 {
-	if (! Auth::check()) return Response::json(
+	if ( ! Sentry::check()) return Response::json(
         array('msg' =>'user not logged in'),
         '401'
     );
+});
+
+Route::filter('ACL',function(){
+    $route_name = Route::currentRouteName();
+
+    $user = Sentry::getUser();
+
+    if($user->isSuperUser()){
+        if($user->spoofing()){
+
+            $user = Sentry::findUserById($user->getSpoofedUserId());
+
+        }
+
+    }
+
+    if (!$user->hasAccess($route_name))
+    {
+        return Response::json(
+            array('msg' =>'Access Denied'),
+            '403'
+        );
+    }
+
+
 });
 
 

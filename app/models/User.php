@@ -3,55 +3,27 @@
 use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableInterface;
 
-class User extends Eloquent implements UserInterface, RemindableInterface {
+class User extends Cartalyst\Sentry\Users\Eloquent\User {
 
-    public static $login_rules = array(
-        'username'=>'required|alpha_num',
-        'password'=>'required|alpha_num',
-    );
+    protected $spoofing = false;
+    protected $spoofed;
 
-	/**
-	 * The database table used by the model.
-	 *
-	 * @var string
-	 */
-	protected $table = 'users';
+    public function spoofUser($id){
+        $this->spoofing = true;
+        $this->spoofed = $id;
+    }
 
-	/**
-	 * The attributes excluded from the model's JSON form.
-	 *
-	 * @var array
-	 */
-	protected $hidden = array('password');
+    public function getSpoofedUserId(){
+        return $this->spoofed;
+    }
 
-	/**
-	 * Get the unique identifier for the user.
-	 *
-	 * @return mixed
-	 */
-	public function getAuthIdentifier()
-	{
-		return $this->getKey();
-	}
+    public function spoofing(){
+        return $this->spoofing;
+    }
 
-	/**
-	 * Get the password for the user.
-	 *
-	 * @return string
-	 */
-	public function getAuthPassword()
-	{
-		return $this->password;
-	}
-
-	/**
-	 * Get the e-mail address where password reminders are sent.
-	 *
-	 * @return string
-	 */
-	public function getReminderEmail()
-	{
-		return $this->email;
-	}
+    public function clearSpoof(){
+        $this->spoofing = false;
+        $this->spoofed = null;
+    }
 
 }

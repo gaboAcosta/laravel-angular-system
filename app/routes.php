@@ -18,18 +18,14 @@ Route::get('/', function()
 
 Route::controller('session','SessionController');
 
-Route::group(array('before' => 'auth'),function(){
-    Route::get('/home', function(){
+Route::group(array('before' => 'auth|ACL'),function(){
+    Route::get('/home', array('as'=>'home',function(){
         return View::make('home');
-    });
-    Route::get('/navbar', function(){
-        return View::make('partials.navbar');
-    });
+    }));
+    Route::get('/acl', array('as'=>'test',function(){
+        return "This is a test!";
+    }));
 });
-
-Route::get('/home', array('before' => 'auth', function(){
-    return View::make('home');
-}));
 
 
 Route::get('/login',function(){
