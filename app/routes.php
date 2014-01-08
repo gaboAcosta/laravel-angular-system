@@ -11,6 +11,11 @@
 |
 */
 
+Route::get('/', function()
+{
+    return View::make('hello');
+});
+
 Route::get('/admin', function()
 {
 	return View::make('layouts.main');
