@@ -8,7 +8,7 @@
 <form class="form-signin" role="form">
     <h2 class="form-signin-heading">Please sign in</h2>
     <input type="text" class="form-control" placeholder="User Name" required autofocus ng-model="username">
-    <input type="password" class="form-control" placeholder="Password" required ng-model="password">
+    <input type="password" id="user-password" class="form-control" placeholder="Password" required ng-model="password">
     <label class="checkbox">
         <input type="checkbox" value="remember-me"> Remember me
     </label>

@@ -14,7 +14,11 @@ angular.module('mainApp')
       location = $rootScope.lastPath;
       delete($rootScope.lastPath);
     }
-    $http.post('/session/start',{username:$scope.username,password:$scope.password})
+    var password = $scope.password;
+    if(! password){
+      password = $('#user-password').val();
+    }
+    $http.post('/session/start',{username:$scope.username,password:password})
       .success(function(){$location.path(location)});
   }
   });

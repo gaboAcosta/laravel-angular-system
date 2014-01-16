@@ -51,6 +51,7 @@ describe('Controller: LoginCtrl', function () {
     $http.get('/home');
     $httpBackend.flush();
 
+
     scope.username = 'asd';
     scope.password = 'asd';
     $httpBackend.expectPOST('/session/start',{username:scope.username,password:scope.password}).respond({message:'login successful'});
