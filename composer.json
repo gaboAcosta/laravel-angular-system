@@ -6,7 +6,8 @@
 	"require": {
 		"laravel/framework": "4.1.*",
     "twitter/bootstrap": "*",
-    "cartalyst/sentry": "2.0.*"
+    "cartalyst/sentry": "2.0.*",
+    "gaboacosta/ui-tools": "dev-master"
 	},
   "require-dev":{
     "mockery/mockery": "dev-master"
