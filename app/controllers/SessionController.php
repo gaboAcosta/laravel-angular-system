@@ -53,11 +53,11 @@ class SessionController extends BaseController {
         }
         catch (Cartalyst\Sentry\Users\WrongPasswordException $e)
         {
-            $msg = 'Wrong password, try again.';
+            $msg = 'User or password incorrect, please try again.';
         }
         catch (Cartalyst\Sentry\Users\UserNotFoundException $e)
         {
-            $msg = 'User was not found.';
+            $msg = 'User or password incorrect, please try again.';
         }
         catch (Cartalyst\Sentry\Users\UserNotActivatedException $e)
         {
@@ -88,7 +88,7 @@ class SessionController extends BaseController {
                 array(
                     'message' => $msg
                 ),
-                '401'
+                '200'
             );
         }
 

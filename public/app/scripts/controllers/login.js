@@ -7,18 +7,25 @@
  */
 
 angular.module('mainApp')
-.controller('LoginCtrl',function($scope,$http,$location,$rootScope){
-  $scope.login = function(){
-    var location = '/';
-    if($rootScope.lastPath != undefined){
-      location = $rootScope.lastPath;
-      delete($rootScope.lastPath);
+  .controller('LoginCtrl',function($scope,$http,$location,$rootScope,$window){
+    $scope.login = function(){
+      var location = '/';
+      if($rootScope.lastPath != undefined && $rootScope.lastPath != '/login'){
+        location = $rootScope.lastPath;
+        delete($rootScope.lastPath);
+      }
+      var password = $scope.password;
+      if(! password){
+        password = $('#user-password').val();
+      }
+      $http.post('/session/start',{username:$scope.username,password:password})
+        .success(function(data){
+          if(data.message == 'login successful'){
+            $location.path(location)
+          } else {
+            $window.alert(data.message);
+          }
+
+        });
     }
-    var password = $scope.password;
-    if(! password){
-      password = $('#user-password').val();
-    }
-    $http.post('/session/start',{username:$scope.username,password:password})
-      .success(function(){$location.path(location)});
-  }
   });
